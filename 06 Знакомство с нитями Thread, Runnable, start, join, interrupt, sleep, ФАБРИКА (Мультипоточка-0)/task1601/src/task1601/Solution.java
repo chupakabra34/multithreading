@@ -18,4 +18,10 @@ public class Solution {
         TestThread task = new TestThread();
         new Thread(task).start();
     }
+
+    public static class TestThread implements Runnable {
+        public void run() {
+            System.out.printf("My first thread");
+        }
+    }
 }
