@@ -21,8 +21,25 @@ public class Solution {
         new Thread(new CountUpRunnable(), "Увеличиваем").start();
     }
 
-    public static class CountUpRunnable {
+    public static class CountUpRunnable implements Runnable {
         //Add your code here - добавь код тут
+        private int countIndexUp = 0;
+
+        public void run() {
+            try {
+                while (true) {
+                    Thread.sleep(500);
+                    countIndexUp += 1;
+                    System.out.println(toString());
+                    if (countIndexUp == Solution.number) return;
+                }
+            } catch (InterruptedException e) {
+            }
+        }
+
+        public String toString() {
+            return Thread.currentThread().getName() + ": " + countIndexUp;
+        }
     }
 
 

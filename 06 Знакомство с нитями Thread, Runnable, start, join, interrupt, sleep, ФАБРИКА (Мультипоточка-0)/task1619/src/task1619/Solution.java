@@ -15,6 +15,8 @@ Requirements:
 6. Метод main должен вызывать метод ourInterruptMethod.*/
 
 public class Solution {
+    public static boolean work = true;
+
     public static void main(String[] args) throws InterruptedException {
         Thread t = new Thread(new TestThread());
         t.start();
@@ -23,12 +25,12 @@ public class Solution {
     }
 
     public static void ourInterruptMethod() {
-
+        work = false;
     }
 
     public static class TestThread implements Runnable {
         public void run() {
-            while (true) {
+            while (work) {
                 try {
                     System.out.println("he-he");
                     Thread.sleep(500);

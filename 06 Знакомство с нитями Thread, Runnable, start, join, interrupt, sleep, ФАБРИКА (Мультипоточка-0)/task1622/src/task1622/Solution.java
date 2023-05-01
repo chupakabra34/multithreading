@@ -22,11 +22,11 @@ Requirements:
 5. Если нить SleepingThread прерывается, она должна вывести сообщение "Нить прервана".*/
 
 public class Solution {
-    public volatile static int COUNT = 4;
+    public volatile static int COUNT = 10;
 
     public static void main(String[] args) throws InterruptedException {
         for (int i = 0; i < COUNT; i++) {
-            new SleepingThread();
+            new SleepingThread().join();
             //напишите тут ваш код
         }
     }
@@ -45,6 +45,11 @@ public class Solution {
                 System.out.println(this);
                 if (--countdownIndex == 0) return;
                 //напишите тут ваш код
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    System.out.println("Нить прервана");
+                }
             }
         }
 
