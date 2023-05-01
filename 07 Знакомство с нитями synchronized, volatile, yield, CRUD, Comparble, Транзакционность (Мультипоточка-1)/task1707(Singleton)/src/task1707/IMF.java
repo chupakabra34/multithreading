@@ -7,7 +7,11 @@ public class IMF {
 
     public static IMF getFund() {
         //add your code here - добавь код тут
-        return imf;
+        synchronized (IMF.class) {
+            if (imf == null)
+                imf = new IMF();
+            return imf;
+        }
     }
 
     private IMF() {

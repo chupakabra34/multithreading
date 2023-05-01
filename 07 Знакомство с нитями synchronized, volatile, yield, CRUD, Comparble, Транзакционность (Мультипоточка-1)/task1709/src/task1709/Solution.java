@@ -25,7 +25,6 @@ public class Solution {
         @Override
         public void run() {
             int thisProposal = proposal;
-
             while (proposal < 10) {
                 System.out.println("Сделано предложение №" + (thisProposal + 1));
                 proposal = ++thisProposal;
@@ -34,23 +33,23 @@ public class Solution {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
-
             }
         }
     }
+//// не решена!!!!!!!!!!!!!!!
+
 
     public static class AcceptProposal extends Thread {
         @Override
         public void run() {
             int thisProposal = proposal;
-
+            System.out.println(thisProposal);
+            System.out.println(proposal);
             while (thisProposal < 10) {
                 if (thisProposal != proposal) {
                     System.out.println("Принято предложение №" + proposal);
                     thisProposal = proposal;
                 }
-
             }
         }
     }
