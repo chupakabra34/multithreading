@@ -1,5 +1,7 @@
 package task1710;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -65,5 +67,71 @@ public class Solution {
 
     public static void main(String[] args) {
         //напишите тут ваш код
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        DateFormat dateFormatPrt = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+        /**
+         Добавляем человека с заданными параметрами в конец allPeople, выводит id (index) на экран
+         */
+        if (args[0].startsWith("-c")) {
+            Date date = null;
+            try {
+                date = dateFormat.parse(args[3]);
+            } catch (ParseException e) {
+                e.getMessage();
+            }
+            if (args[2].startsWith("м")) {
+                Person person = Person.createMale(args[1], date);
+                allPeople.add(person);
+                System.out.println(allPeople.indexOf(person));
+            } else {
+                Person person = Person.createFemale(args[1], date);
+                allPeople.add(person);
+                System.out.println(allPeople.indexOf(person));
+            }
+        }
+/**
+ Обновляем данные человека с данным id
+ */
+        if (args[0].startsWith("-u")) {
+            int index = Integer.parseInt(args[1]);
+            Person person = allPeople.get(index);
+            person.setName(args[2]); //update name
+            Date date = null; //udate date
+            try {
+                date = dateFormat.parse(args[4]);
+            } catch (ParseException e) {
+                e.getMessage();
+            }
+            person.setBirthDate(date);
+            if (args[3].startsWith("м")) //update sex
+                person.setSex(Sex.MALE);
+            else
+                person.setSex(Sex.FEMALE);
+        }
+/**
+ * -d - производит логическое удаление человека с id, заменяет все его данные на null
+ */
+        if (args[0].startsWith("-d")) {
+            int index = Integer.parseInt(args[1]);
+            Person person = allPeople.get(index);
+
+            person.setName(null);
+            person.setSex(null);
+            person.setBirthDate(null);
+        }
+/**
+ * -r - выводит на экран информацию о человеке с id: name sex (м/ж) bd (формат 15-Apr-1990)
+ */
+        if (args[0].startsWith("-r")) {
+            int index = Integer.parseInt(args[1]);
+            Person person = allPeople.get(index);
+            StringBuffer reader = new StringBuffer();
+            reader.append(person.getName());
+            reader.append(" ");
+            reader.append(person.getSex() == Sex.MALE ? "м" : "ж");
+            reader.append(" ");
+            reader.append(dateFormatPrt.format(person.getBirthDate()));
+            System.out.println(reader);
+        }
     }
 }

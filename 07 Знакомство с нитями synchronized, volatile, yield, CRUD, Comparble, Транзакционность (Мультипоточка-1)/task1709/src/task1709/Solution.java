@@ -36,16 +36,17 @@ public class Solution {
             }
         }
     }
-//// не решена!!!!!!!!!!!!!!!
-
 
     public static class AcceptProposal extends Thread {
         @Override
         public void run() {
             int thisProposal = proposal;
-            System.out.println(thisProposal);
-            System.out.println(proposal);
             while (thisProposal < 10) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 if (thisProposal != proposal) {
                     System.out.println("Принято предложение №" + proposal);
                     thisProposal = proposal;
